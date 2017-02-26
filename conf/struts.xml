@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+    <!-- 配置 Struts 可以受理的请求的扩展名 -->
+	<constant name="struts.action.extension" value="action,do,"/>
+	
+	<!-- 打开允许动态方法调用的开关, 默认是 false -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+   
+	<!-- 默认字体 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"/> 
+	<!-- 去除样式 -->
+	<constant name="struts.ui.theme" value="simple" /> 
+	<constant name="struts.ui.templateDir" value="template" /> 
+	<constant name="struts.ui.templateSuffix" value="ftl" /> 
+	<!-- 设置文件大小限制 -->
+	<constant name="struts.multipart.maxSize" value="1024000000"/>
+	
+	<package name="mystruts" extends="struts-default">
+	   
+	    
+	    <interceptors> 
+            <interceptor name="action" class="com.hackerspace.intercept.ActionIntercept"></interceptor> 
+            <interceptor name="message" class="com.hackerspace.intercept.MessageIntercept"></interceptor>
+            <interceptor-stack name="actionCheck"> 
+                <interceptor-ref name="action"></interceptor-ref> 
+                <interceptor-ref name="message"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref> 
+            </interceptor-stack> 
+        </interceptors> 
+	    
+	  
+        <default-interceptor-ref name="actionCheck"></default-interceptor-ref> 
+ 
+        <global-results> 
+            <result name="unpass" type="redirect">/Web/jsp/View/Public/User/Login.jsp</result> 
+            <result name="404" type="redirect">/WEB_INF/404.jsp</result>
+            <result name="error" type="redirect">/WEB_INF/404.jsp</result>
+            <result name="jump">/Web/jsp/Result/Jump.jsp</result>
+            <result name="illegal" type="redirect">/illegal.jsp</result> 
+        </global-results> 
+    </package>
+    
+    <package name="test" extends="mystruts">
+        <action name="addPicture" class="com.hackerspace.action.TestAction" method="addPicture">
+            <result>/Web/jsp/Result/Success.jsp</result>
+            <result name="error">/Web/jsp/Result/Error.jsp</result>
+        </action>
+    </package>
+    
+    <!-- 在此添加action跳转文件-->
+    <include file="weicong.xml"/>
+    <include file="tianxin.xml"/> 
+    <include file="junming.xml"/>
+</struts>

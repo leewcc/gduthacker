@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+     <package name="manager" extends="mystruts">
+     	<action name="ManagerLogin" class="com.hackerspace.action.manager.ManagerAction" method="login">
+     		<result name="success" type="redirect">/Web/jsp/Manager/Common/Common/ManagerPage.jsp</result>
+     		<result name="login">/Web/jsp/Manager/PublicPart/ManagerLogin.jsp</result>
+     		<result name="fail">/Web/jsp/Result/Jump.jsp</result>
+     		<result name="input">/Web/jsp/Manager/PublicPart/ManagerLogin.jsp</result>
+     	</action>
+     	
+     	<action name="GoPassword" class="com.hackerspace.action.manager.ManagerAction" method="goPassword">
+     		<result name="success">/Web/jsp/View/User/Public/User/ModifyPassByPass.jsp?role=manager</result>
+     	</action>
+     	
+     	<action name="ManagerLogout" class="com.hackerspace.action.manager.ManagerAction" method="logout">
+     		<result name="success" type="redirect">/Web/jsp/Manager/PublicPart/ManagerLogin.jsp</result>
+     	</action>
+     
+     	<action name="SelectByRole" class="com.hackerspace.action.manager.high.ManageUserAction" method="seleceByRole">
+     		<result name="common">/Web/jsp/Manager/High/User/ManageCommonUser.jsp</result>
+     		<result name="high">/Web/jsp/Manager/High/User/ManageHighUser.jsp</result>
+     	</action>
+     	
+     	<action name="GetUser" class="com.hackerspace.action.manager.high.ManageUserAction" method="getUser">
+     		<result name="success">/Web/jsp/Manager/High/User/RegisterMess.jsp</result>
+     	</action>
+     	
+     	<action name="DeleteUser" class="com.hackerspace.action.manager.high.ManageUserAction" method="delete">
+     		<result name="success" type="chain">SelectByRole?role=1&amp;page=1
+     			<param name="actionName">SelectByRole</param>
+     			<param name="role">${role}</param>
+     			<param name="page">${page}</param>
+     		</result>
+     	</action>
+     	
+     	<action name="AddUser" class="com.hackerspace.action.manager.high.ManageUserAction" method="addUser">
+     		<result name="exist">/Web/jsp/Manager/High/User/AddUser.jsp</result>
+     		<result name="input">/Web/jsp/Manager/High/User/AddUser.jsp</result>
+     		<result name="success" type="redirectAction">
+     			<param name="actionName">SelectByRole</param>
+     			<param name="role">${role}</param>
+     			<param name="page">1</param>
+     		</result>
+     	</action>
+     	
+     	<action name="ResetPass" class="com.hackerspace.action.manager.high.ManageUserAction" method="resetPass">
+     		<result name="success" type="chain">SelectByRole?role=1&amp;page=1
+     			<param name="actionName">SelectByRole</param>
+     			<param name="role">${role}</param>
+     			<param name="page">${page}</param>
+     		</result>
+     	</action>
+     	
+     	<action name="SelectRegister" class="com.hackerspace.action.manager.high.ManageRegisterAction" method="selectRegister">
+     		<result name="success">/Web/jsp/Manager/High/User/HandleRegister.jsp</result>
+     	</action>
+     	
+     	<action name="HandleRegister" class="com.hackerspace.action.manager.high.ManageRegisterAction" method="handleRegister">
+     		<result name="success" type="redirectAction">SelectRegister?page=1</result>
+     		<result name="null"></result>
+     	</action>
+     </package>
+     
+     <package name="superm" extends="mystruts">
+     
+     	<action name="ManagePowerAction" class="com.hackerspace.action.manager.superm.ManagePowerAction" method="setPower">
+     		<result name="success">/Web/jsp/Manager/Super/User/ManagePower.jsp</result>
+     	</action>
+     </package>
+     
+     <package name="public" extends="mystruts">
+     	<action name="UserLogin" class="com.hackerspace.action.view.publicPart.UserAction"  method="login">
+     		<result name="login">/Web/jsp/View/Public/User/Login.jsp</result>
+     		<result name="input">/Web/jsp/View/Public/User/Login.jsp</result>
+     		<result name="fail">/Web/jsp/Result/Jump.jsp</result>
+     		<result name="success" type="redirect">/Web/jsp/View/User/Common/CommonUserPage.jsp</result>
+     	</action>
+     	
+     	<action name="InputBase" class="com.hackerspace.action.view.publicPart.UserAction"  method="inputBase">
+     		<result name="success" type="redirectAction">
+     			<param name="actionName">prepareUserPicture</param>
+     			<param name="way">2</param>
+     		</result>	
+     		<result name="input">/Web/jsp/View/Public/User/Register.jsp</result>
+     		<result name="exist">/Web/jsp/View/Public/User/Register.jsp</result>
+     	</action>
+     	
+     	<action name="InputCardPic" class="com.hackerspace.action.view.publicPart.UserAction"  method="inputCardPic">
+     		<result name="success" type="redirectAction">
+     			<param name="actionName">prepareUserPicture</param>
+     			<param name="way">3</param>
+     		</result>	
+     		<result name="input">/Web/jsp/View/Public/User/UploadCardPicture.jsp</result>
+     		<result name="fail">/Web/jsp/View/Public/User/Register.jsp</result>
+     	</action>
+     	
+     	<action name="InputPicture" class="com.hackerspace.action.view.publicPart.UserAction"  method="inputPicture">
+     		<result name="success">/Web/jsp/View/Public/User/InputSecurity.jsp</result>	
+     		<result name="input">/Web/jsp/View/Public/User/UploadPicture.jsp</result>
+     		<result name="fail">/Web/jsp/View/Public/User/Register.jsp</result>
+     	</action>
+     	
+     	<action name="InputSecurities" class="com.hackerspace.action.view.publicPart.UserAction"  method="setSecurities">
+     		<result name="success">/Web/jsp/Result/Jump.jsp</result>	
+     		<result name="input">/Web/jsp/View/Public/User/InputSecurity.jsp</result>
+     		<result name="fail">/Web/jsp/View/Public/User/Register.jsp</result>
+     	</action>
+     	
+     	<action name="UserLogout" class="com.hackerspace.action.view.publicPart.UserAction" method="logout">
+     		<result name="success" type="redirect">/Web/jsp/View/Public/User/Login.jsp</result>
+     	</action>
+     	
+     	<action name="ForgetPass" class="com.hackerspace.action.view.publicPart.UserAction" method="getSecurity">
+     		<result name="fail">/Web/jsp/View/Public/User/InputPerson.jsp</result>
+     		<result name="input">/Web/jsp/View/Public/User/InputPerson.jsp</result>
+     		<result name="success">/Web/jsp/View/Public/User/ModifyPassByQues.jsp</result>
+     	</action>
+     	<action name="ConfirmSecurity" class="com.hackerspace.action.view.publicPart.UserAction" method="confirmSecurity">
+     		<result name="input">/Web/jsp/View/Public/User/ModifyPassByQues.jsp</result>
+     		<result name="success">/Web/jsp/View/Public/User/SetPassword.jsp</result>
+     	</action>
+     	<action name="SetPassword" class="com.hackerspace.action.view.publicPart.UserAction" method="setPassword">
+     		<result name="success">/Web/jsp/View/Public/User/Login.jsp</result>
+     		<result name="input">/Web/jsp/View/Public/User/SetPassword.jsp</result>
+     	</action>
+     	
+
+     	
+     	<action name="UpdatePass" class="com.hackerspace.action.view.common.PersonalUserAction" method="updatePassByPass">
+     		<result name="false">/Web/jsp/View/User/Public/User/ModifyPassByPass.jsp</result>
+     		<result name="input">/Web/jsp/View/User/Public/User/ModifyPassByPass.jsp</result>
+     		<result name="success">/Web/jsp/View/User/Public/User/ModifyPassByPass.jsp</result>
+     	</action>
+     	
+     	<action name="FindSecurities" class="com.hackerspace.action.view.common.PersonalUserAction" method="findSecurities">
+     		<result name="set">/Web/jsp/View/User/Public/User/SetQuestion.jsp</result>
+     		<result name="edit">/Web/jsp/View/User/Public/User/ModifyQuestion.jsp</result>
+     	</action>
+     	
+     	<action name="GoHome" class="com.hackerspace.action.view.common.PersonalUserAction" method="goHome">
+     		<result name="success">/Web/jsp/View/User/Public/User/SetQuestion.jsp</result>
+
+     	</action>
+     	
+     	<action name="ConfirmSecurities" class="com.hackerspace.action.view.common.PersonalUserAction" method="confirmSecurities">
+     		<result name="null" type="redirectAction">FindSecurities</result>
+     		<result name="input">/Web/jsp/View/User/Public/User/ModifyQuestion.jsp</result>
+     		<result name="success">/Web/jsp/View/User/Public/User/SetQuestion.jsp</result>
+     		<result name="fail">/Web/jsp/View/User/Public/User/ModifyQuestion.jsp</result>
+     	</action>
+     	
+     	<action name="SetSecurities" class="com.hackerspace.action.view.common.PersonalUserAction" method="setSecurities">
+     		<result name="success">/Web/jsp/Result/Jump.jsp</result>
+     		<result name="input">/Web/jsp/View/User/Public/User/SetQuestion.jsp</result>
+     	</action>
+     </package>
+     
+     <package name="message" extends="mystruts">
+     	<action name="SelectMessage" class="com.hackerspace.action.manager.high.ManageMessageAction" method="selectMessage">
+     		<result name="success">/Web/jsp/Manager/High/Message/ManageMessage.jsp</result>
+     	</action>
+     	
+     	<action name="ReplyMessage" class="com.hackerspace.action.manager.high.ManageMessageAction" method="replyMessage">
+     		<result name="fail" type="chain">FindMessage</result>
+     		<result name="success" type="redirectAction">
+     			<param name="actionName">FindMessage</param>
+     			<param name="id">${id}</param>
+     		</result>
+     	</action>
+     	
+     	<action name="DeleteMessage" class="com.hackerspace.action.manager.high.ManageMessageAction" method="deleteMessage">
+     		<result name="success" type="redirectAction">SelectMessage?page=1</result>
+     	</action>
+     	
+		<action name="PrepareUser" class="com.hackerspace.action.manager.high.ManageMessageAction" method="findUser">
+     		<result name="success">/Web/jsp/Manager/High/Message/MessToUser.jsp</result>
+     	</action>
+     	
+     	<action name="MessToUser" class="com.hackerspace.action.manager.high.ManageMessageAction" method="messToUser">
+     		<result name="input" type="chain">
+     			<param name="actionName">PrepareUser</param>
+     			<param name="role">${role}</param>
+     			<param name="page">${page}</param>
+     		</result>
+     		<result name="success" type="chain">
+     			<param name="actionName">PrepareUser</param>
+     			<param name="role">${role}</param>
+     			<param name="page">${page}</param>
+     		</result>
+     	</action>
+     	
+     	<action name="FindMessage" class="com.hackerspace.action.manager.high.ManageMessageAction" method="findMessage">
+     		<result name="success">/Web/jsp/Manager/High/Message/ReplyMess.jsp</result>
+     	</action>
+     	
+     	<action name="SelectQuestion" class="com.hackerspace.action.manager.high.ManageQuestionAction" method="selectQuestion">
+     		<result name="success">/Web/jsp/Manager/High/Message/ManageQuestion.jsp</result>
+     	</action>
+     	
+     	<action name="EditQuestion" class="com.hackerspace.action.manager.high.ManageQuestionAction" method="editQuestion">
+     		<result name="input">/Web/jsp/Manager/High/Message/EditQuestion.jsp</result>
+     		<result name="success" type="redirectAction">SelectQuestion</result>
+     	</action>
+     	
+     	<action name="DeleteQuestion" class="com.hackerspace.action.manager.high.ManageQuestionAction" method="deleteQuestion">
+     		<result name="success" type="redirectAction">SelectQuestion</result>
+     	</action>
+     	
+     	<action name="FindQuestion" class="com.hackerspace.action.manager.high.ManageQuestionAction" method="findQuestion">
+     		<result name="success">/Web/jsp/Manager/High/Message/EditQuestion.jsp</result>
+     	</action>
+     	
+     </package>
+     
+     <package name="team" extends="mystruts">
+     	<action name="SelectTeam" class="com.hackerspace.action.manager.high.ManageTeamAction" method="selectTeam">
+     		<result name="success">/Web/jsp/Manager/High/Team/ManageTeam.jsp</result>
+     	</action>
+     	<action name="FindTeam" class="com.hackerspace.action.manager.high.ManageTeamAction" method="findTeam">
+     		<result name="edit">/Web/jsp/Manager/High/Team/EditTeam.jsp</result>
+     		<result name="mess">/Web/jsp/Manager/High/Team/TeamMess.jsp</result>
+     	</action>
+     	
+     	<action name="EditTeam" class="com.hackerspace.action.manager.high.ManageTeamAction" method="editTeam">
+     		<result  name="mess">/Web/jsp/Manager/High/Team/TeamMess.jsp</result>
+     		<result name="input">/Web/jsp/Manager/High/Team/EditTeam.jsp</result>
+     	</action>
+     	
+     	<action name="EditDes" class="com.hackerspace.action.manager.high.ManageTeamAction" method="editDes">
+     		<result  name="success" type="redirectAction">
+     			<param name="actionName">FindTeam</param>
+     			<param name="id">${id}</param>
+     		</result>
+     		<result name="input">/Web/jsp/Manager/High/Team/EditDes.jsp</result>
+     	</action>
+     	
+     	<action name="FindDes" class="com.hackerspace.action.manager.high.ManageTeamAction" method="findDes">
+     		<result name="success">/Web/jsp/Manager/High/Team/EditDes.jsp</result>
+     	</action>
+     	
+     	<action name="SelectTeamUser" class="com.hackerspace.action.manager.high.ManageTeamUserAction" method="selectTeamUser">
+     		<result name="success">/Web/jsp/Manager/High/Team/ManageTeamUser.jsp</result>
+     	</action>
+     	
+     	<action name="HandleTeamUser" class="com.hackerspace.action.manager.high.ManageTeamUserAction" method="handleTeamUser">
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamUser</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+     		
+     	<action name="FindPerson" class="com.hackerspace.action.manager.high.ManageTeamUserAction" method="findPerson">
+     		<result name="null">/Web/jsp/Manager/High/Team/InputPerson.jsp</result>
+     		<result name="input">/Web/jsp/Manager/High/Team/InputPerson.jsp</result>
+     		<result name="success">/Web/jsp/Manager/High/Team/PersonMess.jsp</result>
+     	</action>
+     	
+     	
+     	<action name="AddPerson" class="com.hackerspace.action.manager.high.ManageTeamUserAction" method="addPerson">
+     		<result name="fail" type="chain">
+     			<param name="actionName">FindPerson</param>
+     		</result>
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamUser</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+   
+     	
+     	<action name="SelectTeamNews" class="com.hackerspace.action.manager.high.ManageTeamNewsAction" method="selectTeamNews">
+     		<result name="success">/Web/jsp/Manager/High/Team/ManageTeamNews.jsp</result>
+     	</action>
+     	
+     	<action name="HandleTeamNews" class="com.hackerspace.action.manager.high.ManageTeamNewsAction" method="handleTeamNews">
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamNews</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+     	
+     	<action name="DeleteTeam" class="com.hackerspace.action.manager.high.ManageTeamAction" method="deleteTeam">
+     		<result name="success" type="redirectAction">
+     			<param name="actionName">SelectTeam</param>
+     			<param name="pageD">1</param>
+     			<param name="pageE">1</param>
+     		</result>
+     		<result name="fail" type="chain">
+     			<param name="actionName">FindTeam</param>
+     			<param name="id">${id}</param>
+     			<param name="way">${way}</param>
+     		</result>
+     		<result name="error" type="chain">
+     			<param name="actionName">FindTeam</param>
+     			<param name="id">${id}</param>
+     			<param name="way">${way}</param>
+     		</result>
+     	</action>
+     </package>
+     
+    
+     
+     <package name="messageView" extends="mystruts">
+     	<action name="SelectMyMessage" class="com.hackerspace.action.view.user.MessageAction" method="selectMyMess">
+     		<result name="success">/Web/jsp/View/User/Public/Message/MyMessage.jsp</result>
+     	</action>
+     	
+     	<action name="MessageBox" class="com.hackerspace.action.view.user.MessageAction" method="messageBox">
+     		<result name="success">/Web/jsp/View/User/Public/Message/MessageBox.jsp</result>
+     	</action>
+     	
+     	<action name="SeeMessage" class="com.hackerspace.action.view.user.MessageAction" method="findMessage">
+     		<result name="success">/Web/jsp/View/User/Public/Message/SeeMessage.jsp</result>
+     	</action>
+     	
+     	<action name="SendMessage" class="com.hackerspace.action.view.user.MessageAction" method="sendMess">
+     		<result name="fail" type="chain">
+     			<param name="actionName">SelectMyMessage</param>
+     			<param name="page">1</param>
+     		</result>
+     		<result name="success" type="redirectAction">SelectMyMessage?page=1</result>
+     	</action>
+     </package>
+     
+     <package name="questionView" extends="mystruts">
+     	<action name="SelectQuestionView" class="com.hackerspace.action.view.publicPart.QuestionAction" method="selectQuestion">
+     		<result name="success">/Web/jsp/View/Public/Question/Question.jsp</result>
+     	</action>
+     	
+     	<action name="SeeQuestion" class="com.hackerspace.action.view.publicPart.QuestionAction" method="seeQuestion">
+     		<result name="success">/Web/jsp/View/Public/Question/SeeQuestion.jsp</result>
+     	</action>
+     </package>
+     
+     <package name="teamView" extends="mystruts">
+     	<action name="SelectMyTeam" class="com.hackerspace.action.view.high.TeamAction"  method="selectMyTeam">
+     		<result name="success">/Web/jsp/View/User/High/Team/MyTeam.jsp</result>
+     	</action>
+     	<action name="SeeMyTeam" class="com.hackerspace.action.view.high.TeamAction"  method="seeMyTeam">
+     		<result name="success">/Web/jsp/View/User/High/Team/TeamMess.jsp</result>
+     	</action>    
+     		
+     </package>
+     
+	<package name="teamUserView" extends="mystruts">
+     	<action name="SelectTeamUserView" class="com.hackerspace.action.view.high.TeamUserAction" method="selectTeamUser">
+     		<result name="success">/Web/jsp/View/User/High/Team/TeamUser.jsp</result>
+     	</action>
+     	 		
+     	<action name="FindMember" class="com.hackerspace.action.view.high.TeamUserAction" method="findMember">
+     		<result name="null">/Web/jsp/View/User/High/Team/InputPerson.jsp</result>
+     		<result name="input">/Web/jsp/View/User/High/Team/InputPerson.jsp</result>
+     		<result name="success">/Web/jsp/View/User/High/Team/PersonMess.jsp</result>
+     	</action>
+     	
+     	<action name="AddMember" class="com.hackerspace.action.view.high.TeamUserAction" method="addMember">
+     		<result name="fail" type="chain">
+     			<param name="actionName">FindMember</param>
+     		</result>
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamUserView</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+     	
+     	<action name="Cancel" class="com.hackerspace.action.view.high.TeamUserAction" method="cancel">
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamUserView</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+     	
+     	<action name="LeaveTeam" class="com.hackerspace.action.view.high.TeamUserAction" method="leaveTeam">
+     		<result type="redirectAction" name="success">
+     			<param name="actionName">SelectTeamUserView</param>
+     			<param name="tid">${tid}</param>
+     			<param name="page">1</param>
+     			<param name="pageN">1</param>
+     		</result>
+     	</action>
+     	
+     	<action name="Maker" class="com.hackerspace.action.view.publicPart.TeamAction" method="selectTeam">
+     		<result name="success">/Web/jsp/View/Public/Maker/MakerFromGDUT/Team.jsp</result>
+     	</action>
+     	<action name="SeeMaker" class="com.hackerspace.action.view.publicPart.TeamAction" method="seeTeam">
+     		<result name="success">/Web/jsp/View/Public/Maker/MakerFromGDUT/TeamMess.jsp</result>
+     	</action>
+     </package>
+     
+     <package name="code" extends="mystruts">
+     	<action name="Code" class="com.hackerspace.action.CodeAction" method="getCode"></action>
+     </package>
+</struts>

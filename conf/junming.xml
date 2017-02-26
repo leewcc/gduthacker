@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="photo" extends="mystruts">
+		<action name="uploadPhoto" class="com.hackerspace.action.view.common.PictureAction" method="uploadPhoto">	
+			<result name="success">/Web/jsp/Manager/Common/System/Picture/UploadPicture.jsp</result>
+			<result name="error">/Web/jsp/Result/Error.jsp</result>
+		</action>    
+		<action name="showManagerPhoto" class="com.hackerspace.action.view.common.PictureAction" method="showManagerPhoto">
+		    <result name="success">/Web/jsp/Manager/Common/System/Picture/ManagerPicture.jsp</result>
+		</action>
+		<action name="uploadColumnPhoto" class="com.hackerspace.action.view.common.PictureAction" method="uploadColumnPhoto">
+		    <result name="success" type="chain">showManagerPhoto</result>
+		</action>
+		<action name="prepareColumnPhoto" class="com.hackerspace.action.view.common.PictureAction" method="prepareColumnPhoto">
+		    <result name="success">/Web/jsp/Manager/Common/System/Picture/UploadPicture.jsp</result>
+		</action>
+		<action name="uploadCkImage" class="com.hackerspace.action.view.common.PictureAction"  method="uploadCkPhoto">
+		</action>
+	</package>
+	<package name="system" extends="mystruts">
+	    <action name="moveProgram" class="com.hackerspace.action.manager.ProgramAction" method="moveProgram">
+	    	<result type="chain">managerProgram</result>
+	    </action>
+	     <action name="operationProgram" class="com.hackerspace.action.manager.ProgramAction" method="operationProgram">
+	    	<result type="chain">managerProgram</result>
+	    </action>
+	     <action name="showHomePage" class="com.hackerspace.action.manager.superm.HomePageAction" method="showHomePage">
+	    	<result>/Web/jsp/View/Public/HomePage/HomePage.jsp</result>
+	    </action>
+	    <action name="showProgram" class="com.hackerspace.action.manager.ProgramAction" method="showProgram">
+	    	<result>/Web/jsp/Manager/Common/System/Programa/ManagerProgram.jsp</result>
+	    </action>
+	    <action name="managerProgram" class="com.hackerspace.action.manager.ProgramAction" method="managerProgram">
+	    	<result>/Web/jsp/Manager/Common/System/Programa/ManagerProgram.jsp</result>
+	    </action>
+	    <action name="saveProgram" class="com.hackerspace.action.manager.ProgramAction" method="saveProgram">
+			<result type="chain">managerProgram</result>
+		</action>	
+		 <action name="updateSystemName" class="com.hackerspace.action.manager.ProgramAction" method="updateSystemName">
+			<result>/Web/jsp/Manager/Common/System/Programa/UpdateSystemName.jsp</result>
+		</action>	
+		<action name="saveSystemName" class="com.hackerspace.action.manager.ProgramAction" method="saveSystemName">
+			<result type="chain">updateSystemName</result>
+		</action>	
+		<action name="showLink" class="com.hackerspace.action.manager.superm.HomePageAction" method="showLink">
+			<result>/Web/jsp/View/Public/HomePage/Footer.jsp</result>
+		</action>	
+		<action name="managerLink" class="com.hackerspace.action.manager.ProgramAction" method="managerLink">
+			<result>/Web/jsp/Manager/Common/System/Programa/ManagerLink.jsp</result>
+		</action>	
+		<action name="updateLink" class="com.hackerspace.action.manager.ProgramAction" method="updateLink">
+			<result type="chain">managerLink</result>
+		</action>	
+		<action name="deleteLink" class="com.hackerspace.action.manager.ProgramAction" method="deleteLink">
+			<result type="chain">managerLink</result>
+		</action>	
+		
+	</package>
+	<package name="news" extends="mystruts">
+		<action name="prepareEditorNews" class="com.hackerspace.action.manager.NewsAction" method="prepareEditorNews">
+		    <result>/Web/jsp/Manager/Common/News/EditorNews.jsp</result>
+		</action>
+		<action name="showViewNews" class="com.hackerspace.action.manager.NewsAction" method="showViewNews">
+		    <result>/Web/jsp/View/Public/News/ShowOneNews.jsp</result>
+		</action>
+		<action name="saveNews" class="com.hackerspace.action.manager.NewsAction" method="saveNews">
+		    <result type="chain">showManagerNews</result>
+		</action>
+		<action name="editorNews" class="com.hackerspace.action.manager.NewsAction" method="editorNews">
+		    <result>/Web/jsp/Manager/Common/News/EditorNews.jsp</result>
+		</action>
+		<action name="uploadNews" class="com.hackerspace.action.manager.NewsAction" method="uploadNews">
+		    <result>/Web/jsp/Manager/Common/News/EditorNews.jsp</result>
+		</action>
+		<action name="showManagerNews" class="com.hackerspace.action.manager.NewsAction" method="showPublishedNews">
+			<result>/Web/jsp/Manager/Common/News/ManagerNews.jsp</result>
+		</action>
+		<action name="showPublishedNews" class="com.hackerspace.action.manager.NewsAction" method="showPublishedNews">
+			<result>/Web/jsp/View/Public/News/ShowPublishedNews.jsp</result>
+		</action>
+		<action name="deleteOneNews" class="com.hackerspace.action.manager.NewsAction" method="deleteOneNews">
+			<result name="published" type="chain">showManagerNews</result>
+			<result name="drafts" type="chain">showDrafts</result>
+		</action>
+		<action name="showDrafts" class="com.hackerspace.action.manager.NewsAction" method="showDrafts">
+			<result>/Web/jsp/Manager/Common/News/ManagerNews.jsp</result>
+		</action>
+		<action name="takeToTop" class="com.hackerspace.action.manager.NewsAction" method="takeToTop">
+			<result type="chain">showManagerNews</result>
+		</action>		
+		<action name="showOneNews" class="com.hackerspace.action.manager.NewsAction" method="showOneNews">
+			<result name="published">/Web/jsp/View/Public/News/ShowOneNews.jsp</result>
+			<result name="drafts">/Web/jsp/Manager/Common/News/EditorOneNews.jsp</result>
+		</action>	
+	</package>
+	<package name="cooperation" extends="mystruts">
+		<action name="prepareEditorCooperation" class="com.hackerspace.action.manager.CooperationAction" method="prepareEditorCooperation">
+		    <result>/Web/jsp/Manager/Common/Cooperation/EditorCooperation.jsp</result>
+		</action>
+		<action name="saveCooperation" class="com.hackerspace.action.manager.CooperationAction" method="saveCooperation">
+		    <result type="chain">showManagerCooperation</result>
+		</action>
+		<action name="editorCooperation" class="com.hackerspace.action.manager.CooperationAction" method="editorCooperation">
+		    <result>/Web/jsp/Manager/Common/Cooperation/EditorCooperation.jsp</result>
+		</action>
+		<action name="uploadCooperation" class="com.hackerspace.action.manager.CooperationAction" method="uploadCooperation">
+		    <result>/Web/jsp/Manager/Common/Cooperation/EditorCooperation.jsp</result>
+		</action>
+		<action name="showManagerCooperation" class="com.hackerspace.action.manager.CooperationAction" method="showPublishedCooperation">
+			<result>/Web/jsp/Manager/Common/Cooperation/ManagerCooperation.jsp</result>
+		</action>
+		<action name="showViewCooperation" class="com.hackerspace.action.manager.CooperationAction" method="showViewCooperation">
+			<result>/Web/jsp/View/Public/Cooperation/ShowOneCooperation.jsp</result>
+		</action>
+		<action name="showPublishedCooperation" class="com.hackerspace.action.manager.CooperationAction" method="showPublishedCooperation">
+			<result>/Web/jsp/View/Public/Cooperation/ShowPublishedCooperation.jsp</result>
+		</action>
+		<action name="deleteOneCooperation" class="com.hackerspace.action.manager.CooperationAction" method="deleteOneCooperation">
+			<result name="published" type="chain">showManagerCooperation</result>
+			<result name="drafts" type="chain">showCooperationDrafts</result>
+		</action>
+		<action name="showCooperationDrafts" class="com.hackerspace.action.manager.CooperationAction" method="showDrafts">
+			<result>/Web/jsp/Manager/Common/Cooperation/ManagerCooperation.jsp</result>
+		</action>
+		<action name="showOneCooperation" class="com.hackerspace.action.manager.CooperationAction" method="showOneCooperation">
+			<result name="published">/Web/jsp/View/Public/Cooperation/ShowOneCooperation.jsp</result>
+			<result name="drafts">/Web/jsp/Manager/Common/Cooperation/EditorOneCooperation.jsp</result>
+		</action>	
+		<action name="showViewCooperation" class="com.hackerspace.action.manager.CooperationAction" method="showViewCooperation">
+			<result>/Web/jsp/View/Public/Cooperation/ShowOneCooperation.jsp</result>
+		</action>	
+	</package>
+	
+	
+	<package name="education1" extends="mystruts">
+		<action name="prepareEditorEducation" class="com.hackerspace.action.manager.EducationAction" method="prepareEditorEducation">
+		    <result>/Web/jsp/Manager/Common/Education/EditorEducation.jsp</result>
+		</action>
+		<action name="saveEducation" class="com.hackerspace.action.manager.EducationAction" method="saveEducation">
+		    <result type="chain">showManagerEducation</result>
+		</action>
+		<action name="editorEducation" class="com.hackerspace.action.manager.EducationAction" method="editorEducation">
+		    <result>/Web/jsp/Manager/Common/Education/EditorEducation.jsp</result>
+		</action>
+		<action name="uploadEducation" class="com.hackerspace.action.manager.EducationAction" method="uploadEducation">
+		    <result>/Web/jsp/Manager/Common/Education/EditorEducation.jsp</result>
+		</action>
+		<action name="showManagerEducation" class="com.hackerspace.action.manager.EducationAction" method="showPublishedEducation">
+			<result>/Web/jsp/Manager/Common/Education/ManagerEducation.jsp</result>
+		</action>
+		<action name="showViewEducation" class="com.hackerspace.action.manager.EducationAction" method="showViewEducation">
+			<result>/Web/jsp/View/Public/Education/ShowOneEducation.jsp</result>
+		</action>
+		<action name="showPublishedEducation" class="com.hackerspace.action.manager.EducationAction" method="showPublishedEducation">
+			<result>/Web/jsp/View/Public/Education/ShowPublishedEducation.jsp</result>
+		</action>
+		<action name="deleteOneEducation" class="com.hackerspace.action.manager.EducationAction" method="deleteOneEducation">
+			<result name="published" type="chain">showManagerEducation</result>
+			<result name="drafts" type="chain">showEducationDrafts</result>
+		</action>
+		<action name="showEducationDrafts" class="com.hackerspace.action.manager.EducationAction" method="showDrafts">
+			<result>/Web/jsp/Manager/Common/Education/ManagerEducation.jsp</result>
+		</action>
+		<action name="showOneEducation" class="com.hackerspace.action.manager.EducationAction" method="showOneEducation">
+			<result name="published">/Web/jsp/View/Public/Education/ShowOneEducation.jsp</result>
+			<result name="drafts">/Web/jsp/Manager/Common/Education/EditorOneEducation.jsp</result>
+		</action>	
+		<action name="showViewEducation" class="com.hackerspace.action.manager.EducationAction" method="showViewEducation">
+			<result>/Web/jsp/View/Public/Education/ShowOneEducation.jsp</result>
+		</action>	
+	</package>
+	<package name="team1" extends ="mystruts">
+	    <action name="updateTeamPicture" class="com.hackerspace.action.manager.high.ManageTeamAction" method="updateTeamPicture">
+	        <result name="success" type="chain">
+	        	<param name="actionName">FindTeam</param>
+	        	<param name="id">${id}</param>
+	        </result>
+	    </action>
+	    <action name="uploadTeamPicture" class="com.hackerspace.action.manager.high.ManageTeamAction" method="uploadTeamPicture">
+	        <result>/Web/jsp/Manager/High/Team/UpdateTeamPicture.jsp</result>
+	    </action>
+	     <action name="prepareTeamPicture" class="com.hackerspace.action.manager.high.ManageTeamAction" method="prepareTeamPicture">
+	        <result>/Web/jsp/Manager/High/Team/UpdateTeamPicture.jsp</result>
+	    </action>
+	</package>
+	<package name="user1" extends ="mystruts">
+	    <action name="prepareUserPicture" class="com.hackerspace.action.view.publicPart.UserAction" method="prepareUserPicture">
+	        <result name="success">/Web/jsp/View/User/Public/User/UpdateUserPhoto.jsp</result>
+	        <result name="picture">/Web/jsp/View/Public/User/UploadPicture.jsp</result>
+	        <result name="cardPic">/Web/jsp/View/Public/User/UploadCardPicture.jsp</result>
+	    </action>
+		<action name="uploadUserPicture" class="com.hackerspace.action.view.publicPart.UserAction" method="uploadUserPicture">
+		    <result>/Web/jsp/View/User/Public/User/UpdateUserPhoto.jsp</result>
+		    <result name="picture">/Web/jsp/View/Public/User/UploadPicture.jsp</result>
+	        <result name="cardPic">/Web/jsp/View/Public/User/UploadCardPicture.jsp</result>
+		</action>
+		<action name="updateUserPicture" class="com.hackerspace.action.view.publicPart.UserAction" method="updateUserPicture">
+		    <result>/Web/jsp/View/User/Public/User/UserMess.jsp</result>
+		</action>
+	</package>
+</struts>
